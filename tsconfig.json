@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    // STRICT TYPE CHECKING
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+
+    // MODULE SETTINGS
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+
+    // OUTPUT SETTINGS
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+
+    // PATH RESOLUTION
+    "baseUrl": ".",
+    "paths": {
+      "@finage/core": ["packages/core/src/index.ts"],
+      "@finage/core/*": ["packages/core/src/*"],
+      "@finage/database": ["packages/database/src/index.ts"],
+      "@finage/database/*": ["packages/database/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "**/node_modules", "dist", "**/dist", ".next", "**/.next"]
+}
