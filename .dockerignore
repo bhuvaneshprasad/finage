@@ -1,0 +1,128 @@
+# -----------------------------------------------------------------------------
+# Dependencies - CRITICAL to exclude!
+# -----------------------------------------------------------------------------
+**/node_modules
+
+# -----------------------------------------------------------------------------
+# Build outputs - We build fresh inside the container
+# -----------------------------------------------------------------------------
+# These are generated during the build process
+**/.next
+**/dist
+**/build
+**/.turbo
+
+# -----------------------------------------------------------------------------
+# Version control
+# -----------------------------------------------------------------------------
+# No need for git history in the Docker image
+.git
+.gitignore
+**/.gitkeep
+
+# -----------------------------------------------------------------------------
+# IDE and editor files
+# -----------------------------------------------------------------------------
+# These are developer tools, not needed in production
+.vscode
+.idea
+**/*.swp
+**/*.swo
+**/.DS_Store
+
+# -----------------------------------------------------------------------------
+# Environment files - SECURITY CRITICAL!
+# -----------------------------------------------------------------------------
+# NEVER include .env files in your Docker image!
+# They contain secrets (API keys, database passwords, etc.)
+# Instead, pass environment variables at runtime using:
+#   docker run -e DATABASE_URL=xxx or docker-compose environment section
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+!.env.example
+
+# -----------------------------------------------------------------------------
+# Documentation and non-essential files
+# -----------------------------------------------------------------------------
+# These don't affect how the app runs
+README.md
+README
+LICENSE
+CHANGELOG.md
+CONTRIBUTING.md
+docs/
+**/*.md
+
+# -----------------------------------------------------------------------------
+# Test files
+# -----------------------------------------------------------------------------
+# Tests should run in CI/CD, not in the production container
+**/*.test.ts
+**/*.test.tsx
+**/*.test.js
+**/*.test.jsx
+**/*.spec.ts
+**/*.spec.tsx
+**/*.spec.js
+**/*.spec.jsx
+__tests__/
+**/__tests__/
+**/tests/
+coverage/
+.nyc_output/
+**/*.snap
+
+# -----------------------------------------------------------------------------
+# TypeScript build info
+# -----------------------------------------------------------------------------
+# These are incremental build caches, not needed in Docker
+**/*.tsbuildinfo
+**/tsconfig.tsbuildinfo
+
+# -----------------------------------------------------------------------------
+# Docker files (prevent recursive inclusion)
+# -----------------------------------------------------------------------------
+Dockerfile
+Dockerfile.*
+docker-compose*.yml
+docker-compose*.yaml
+.dockerignore
+
+# -----------------------------------------------------------------------------
+# CI/CD configuration
+# -----------------------------------------------------------------------------
+# These configure your CI pipeline, not the application
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+Jenkinsfile
+azure-pipelines.yml
+
+# -----------------------------------------------------------------------------
+# Misc development files
+# -----------------------------------------------------------------------------
+# Various development tools and caches
+.husky/
+.eslintcache
+.stylelintcache
+**/.cache/
+**/tmp/
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.pid
+*.seed
+*.pid.lock
+
+# -----------------------------------------------------------------------------
+# Database files (if any local SQLite databases)
+# -----------------------------------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
