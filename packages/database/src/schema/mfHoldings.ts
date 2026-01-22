@@ -9,9 +9,9 @@ export const mfHoldings = pgTable('mf_holdings', {
     .primaryKey()
     .$defaultFn(() => `MH_${nanoid(16)}`),
   mfCode: text('mf_code').references(() => mfSchemes.mfCode),
-  holdingType: smallint('holding_type').references(() => assetType.assetTypeCode),
+  holdingType: smallint('holding_type').notNull().references(() => assetType.assetTypeCode),
   securityCode: text('security_code'),
-  holdingAsOn: integer('mf_holding_as_on_code').references(
+  holdingAsOn: integer('mf_holding_as_on_code').notNull().references(
     () => mfHoldingsPeriod.mfHoldingPeriodCode
   ),
   weight: numeric('weight').notNull(),

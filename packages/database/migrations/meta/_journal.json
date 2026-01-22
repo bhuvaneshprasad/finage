@@ -127,6 +127,13 @@
       "when": 1768997903588,
       "tag": "0017_gorgeous_the_hand",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1769063061354,
+      "tag": "0018_friendly_ego",
+      "breakpoints": true
     }
   ]
 }
