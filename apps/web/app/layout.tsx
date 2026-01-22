@@ -1,13 +1,9 @@
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs';
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import AppSidebar from '@/components/app-sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -41,7 +37,10 @@ export default function RootLayout({
               <UserButton />
             </SignedIn>
           </header>
-          {children}
+          <SidebarProvider>
+            <AppSidebar />
+            <main>{children}</main>
+          </SidebarProvider>
         </body>
       </html>
     </ClerkProvider>
