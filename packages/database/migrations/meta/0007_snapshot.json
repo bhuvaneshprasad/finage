@@ -1,0 +1,892 @@
+{
+  "id": "6dc394d4-0b93-47c7-9972-618bbbdd1ed8",
+  "prevId": "290f54f6-c591-4c2e-a851-078aed9ef506",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.amc": {
+      "name": "amc",
+      "schema": "",
+      "columns": {
+        "amc_code": {
+          "name": "amc_code",
+          "type": "smallint",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "amc_amc_code_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "32767",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "amc_name": {
+          "name": "amc_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amc_logo_name": {
+          "name": "amc_logo_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "amc_amc_name_unique": {
+          "name": "amc_amc_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "amc_name"
+          ]
+        },
+        "amc_amc_logo_name_unique": {
+          "name": "amc_amc_logo_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "amc_logo_name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.asset_type": {
+      "name": "asset_type",
+      "schema": "",
+      "columns": {
+        "asset_type_code": {
+          "name": "asset_type_code",
+          "type": "smallint",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "asset_type_asset_type_code_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "32767",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "asset_type_name": {
+          "name": "asset_type_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "asset_type_asset_type_name_unique": {
+          "name": "asset_type_asset_type_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "asset_type_name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.benchmark": {
+      "name": "benchmark",
+      "schema": "",
+      "columns": {
+        "benchmark_code": {
+          "name": "benchmark_code",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "benchmark_benchmark_code_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "benchmark_name": {
+          "name": "benchmark_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "benchmark_benchmark_name_unique": {
+          "name": "benchmark_benchmark_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "benchmark_name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.country": {
+      "name": "country",
+      "schema": "",
+      "columns": {
+        "country_code": {
+          "name": "country_code",
+          "type": "char(3)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "country_name": {
+          "name": "country_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.currency": {
+      "name": "currency",
+      "schema": "",
+      "columns": {
+        "currency_code": {
+          "name": "currency_code",
+          "type": "char(3)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "currency_name": {
+          "name": "currency_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.fund_managers": {
+      "name": "fund_managers",
+      "schema": "",
+      "columns": {
+        "fund_managers_id": {
+          "name": "fund_managers_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "fund_managers_fund_managers_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "fund_manager_name": {
+          "name": "fund_manager_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "name": "gender",
+          "type": "char",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mf_holdings": {
+      "name": "mf_holdings",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "holding_type": {
+          "name": "holding_type",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "security_code": {
+          "name": "security_code",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mf_holding_as_on_code": {
+          "name": "mf_holding_as_on_code",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "weight": {
+          "name": "weight",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_of_units": {
+          "name": "no_of_units",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "market_value": {
+          "name": "market_value",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "maturity_date": {
+          "name": "maturity_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "coupon": {
+          "name": "coupon",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mf_holdings_holding_type_asset_type_asset_type_code_fk": {
+          "name": "mf_holdings_holding_type_asset_type_asset_type_code_fk",
+          "tableFrom": "mf_holdings",
+          "tableTo": "asset_type",
+          "columnsFrom": [
+            "holding_type"
+          ],
+          "columnsTo": [
+            "asset_type_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mf_holdings_security_code_security_security_code_fk": {
+          "name": "mf_holdings_security_code_security_security_code_fk",
+          "tableFrom": "mf_holdings",
+          "tableTo": "security",
+          "columnsFrom": [
+            "security_code"
+          ],
+          "columnsTo": [
+            "security_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mf_holdings_mf_holding_as_on_code_mf_holdig_period_mf_holding_period_code_fk": {
+          "name": "mf_holdings_mf_holding_as_on_code_mf_holdig_period_mf_holding_period_code_fk",
+          "tableFrom": "mf_holdings",
+          "tableTo": "mf_holdig_period",
+          "columnsFrom": [
+            "mf_holding_as_on_code"
+          ],
+          "columnsTo": [
+            "mf_holding_period_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mf_holdig_period": {
+      "name": "mf_holdig_period",
+      "schema": "",
+      "columns": {
+        "mf_holding_period_code": {
+          "name": "mf_holding_period_code",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "mf_holding_as_on": {
+          "name": "mf_holding_as_on",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "mf_holdig_period_mf_holding_as_on_unique": {
+          "name": "mf_holdig_period_mf_holding_as_on_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "mf_holding_as_on"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mf_nav": {
+      "name": "mf_nav",
+      "schema": "",
+      "columns": {
+        "mf_code": {
+          "name": "mf_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nav_date": {
+          "name": "nav_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nav": {
+          "name": "nav",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "mf_nav_unique_idx": {
+          "name": "mf_nav_unique_idx",
+          "columns": [
+            {
+              "expression": "mf_code",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "nav_date",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "nav",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "mf_nav_scheme_idx": {
+          "name": "mf_nav_scheme_idx",
+          "columns": [
+            {
+              "expression": "mf_code",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "mf_nav_mf_code_mf_schemes_mf_code_fk": {
+          "name": "mf_nav_mf_code_mf_schemes_mf_code_fk",
+          "tableFrom": "mf_nav",
+          "tableTo": "mf_schemes",
+          "columnsFrom": [
+            "mf_code"
+          ],
+          "columnsTo": [
+            "mf_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mf_scheme_category": {
+      "name": "mf_scheme_category",
+      "schema": "",
+      "columns": {
+        "category_code": {
+          "name": "category_code",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "category_name": {
+          "name": "category_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "mf_scheme_category_category_name_unique": {
+          "name": "mf_scheme_category_category_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "category_name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mf_scheme_fund_managers": {
+      "name": "mf_scheme_fund_managers",
+      "schema": "",
+      "columns": {
+        "mf_code": {
+          "name": "mf_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fund_manager_id": {
+          "name": "fund_manager_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "start_date": {
+          "name": "start_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "end_date": {
+          "name": "end_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_current": {
+          "name": "is_current",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mf_scheme_fund_managers_mf_code_mf_schemes_mf_code_fk": {
+          "name": "mf_scheme_fund_managers_mf_code_mf_schemes_mf_code_fk",
+          "tableFrom": "mf_scheme_fund_managers",
+          "tableTo": "mf_schemes",
+          "columnsFrom": [
+            "mf_code"
+          ],
+          "columnsTo": [
+            "mf_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mf_scheme_fund_managers_fund_manager_id_fund_managers_fund_managers_id_fk": {
+          "name": "mf_scheme_fund_managers_fund_manager_id_fund_managers_fund_managers_id_fk",
+          "tableFrom": "mf_scheme_fund_managers",
+          "tableTo": "fund_managers",
+          "columnsFrom": [
+            "fund_manager_id"
+          ],
+          "columnsTo": [
+            "fund_managers_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mf_schemes": {
+      "name": "mf_schemes",
+      "schema": "",
+      "columns": {
+        "mf_code": {
+          "name": "mf_code",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "isin": {
+          "name": "isin",
+          "type": "char",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "scheme_name": {
+          "name": "scheme_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amc_code": {
+          "name": "amc_code",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "asset_type_code": {
+          "name": "asset_type_code",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category_code": {
+          "name": "category_code",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "base_currency": {
+          "name": "base_currency",
+          "type": "char",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "domicile_country": {
+          "name": "domicile_country",
+          "type": "char",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inception_date": {
+          "name": "inception_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "benchmark_code": {
+          "name": "benchmark_code",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mf_schemes_amc_code_amc_amc_code_fk": {
+          "name": "mf_schemes_amc_code_amc_amc_code_fk",
+          "tableFrom": "mf_schemes",
+          "tableTo": "amc",
+          "columnsFrom": [
+            "amc_code"
+          ],
+          "columnsTo": [
+            "amc_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mf_schemes_asset_type_code_asset_type_asset_type_code_fk": {
+          "name": "mf_schemes_asset_type_code_asset_type_asset_type_code_fk",
+          "tableFrom": "mf_schemes",
+          "tableTo": "asset_type",
+          "columnsFrom": [
+            "asset_type_code"
+          ],
+          "columnsTo": [
+            "asset_type_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mf_schemes_category_code_mf_scheme_category_category_code_fk": {
+          "name": "mf_schemes_category_code_mf_scheme_category_category_code_fk",
+          "tableFrom": "mf_schemes",
+          "tableTo": "mf_scheme_category",
+          "columnsFrom": [
+            "category_code"
+          ],
+          "columnsTo": [
+            "category_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mf_schemes_base_currency_currency_currency_code_fk": {
+          "name": "mf_schemes_base_currency_currency_currency_code_fk",
+          "tableFrom": "mf_schemes",
+          "tableTo": "currency",
+          "columnsFrom": [
+            "base_currency"
+          ],
+          "columnsTo": [
+            "currency_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mf_schemes_domicile_country_country_country_code_fk": {
+          "name": "mf_schemes_domicile_country_country_country_code_fk",
+          "tableFrom": "mf_schemes",
+          "tableTo": "country",
+          "columnsFrom": [
+            "domicile_country"
+          ],
+          "columnsTo": [
+            "country_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mf_schemes_benchmark_code_benchmark_benchmark_code_fk": {
+          "name": "mf_schemes_benchmark_code_benchmark_benchmark_code_fk",
+          "tableFrom": "mf_schemes",
+          "tableTo": "benchmark",
+          "columnsFrom": [
+            "benchmark_code"
+          ],
+          "columnsTo": [
+            "benchmark_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.sector": {
+      "name": "sector",
+      "schema": "",
+      "columns": {
+        "sector_id": {
+          "name": "sector_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "sector_name": {
+          "name": "sector_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.security": {
+      "name": "security",
+      "schema": "",
+      "columns": {
+        "security_code": {
+          "name": "security_code",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "isin": {
+          "name": "isin",
+          "type": "char",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ticker": {
+          "name": "ticker",
+          "type": "char",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "security_name": {
+          "name": "security_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "security_type": {
+          "name": "security_type",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sector_id": {
+          "name": "sector_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "country_code": {
+          "name": "country_code",
+          "type": "char",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "currency_code": {
+          "name": "currency_code",
+          "type": "char",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "security_security_type_asset_type_asset_type_code_fk": {
+          "name": "security_security_type_asset_type_asset_type_code_fk",
+          "tableFrom": "security",
+          "tableTo": "asset_type",
+          "columnsFrom": [
+            "security_type"
+          ],
+          "columnsTo": [
+            "asset_type_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "security_sector_id_sector_sector_id_fk": {
+          "name": "security_sector_id_sector_sector_id_fk",
+          "tableFrom": "security",
+          "tableTo": "sector",
+          "columnsFrom": [
+            "sector_id"
+          ],
+          "columnsTo": [
+            "sector_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "security_country_code_country_country_code_fk": {
+          "name": "security_country_code_country_country_code_fk",
+          "tableFrom": "security",
+          "tableTo": "country",
+          "columnsFrom": [
+            "country_code"
+          ],
+          "columnsTo": [
+            "country_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "security_currency_code_currency_currency_code_fk": {
+          "name": "security_currency_code_currency_currency_code_fk",
+          "tableFrom": "security",
+          "tableTo": "currency",
+          "columnsFrom": [
+            "currency_code"
+          ],
+          "columnsTo": [
+            "currency_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

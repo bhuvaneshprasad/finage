@@ -2,14 +2,15 @@ import { date, integer, numeric, pgTable, smallint, text } from 'drizzle-orm/pg-
 import { nanoid } from 'nanoid';
 import { assetType } from './assetType';
 import { mfHoldingsPeriod } from './mfHoldingsPeriod';
-import { security } from './security';
+import { mfSchemes } from './mfSchemes';
 
 export const mfHoldings = pgTable('mf_holdings', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => `MH_${nanoid(16)}`),
+  mfCode: text('mf_code').references(() => mfSchemes.mfCode),
   holdingType: smallint('holding_type').references(() => assetType.assetTypeCode),
-  securityCode: integer('security_code').references(() => security.securityCode),
+  securityCode: text('security_code'),
   holdingAsOn: integer('mf_holding_as_on_code').references(
     () => mfHoldingsPeriod.mfHoldingPeriodCode
   ),

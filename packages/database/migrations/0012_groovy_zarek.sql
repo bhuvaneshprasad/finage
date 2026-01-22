@@ -1,0 +1,1 @@
+ALTER TABLE "mf_schemes" ALTER COLUMN "isin" SET DATA TYPE text;

@@ -5,7 +5,7 @@ import { currency } from './currency';
 import { sector } from './sector';
 
 export const security = pgTable('security', {
-  securityCode: integer('security_code').primaryKey(),
+  securityCode: text('security_code').primaryKey(),
   isin: char('isin').notNull(),
   securityTicker: char('ticker'),
   securityName: text('security_name').notNull(),

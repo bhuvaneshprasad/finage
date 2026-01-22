@@ -1,0 +1,1 @@
+ALTER TABLE "currency" ALTER COLUMN "currency_code" SET DATA TYPE char(3);
