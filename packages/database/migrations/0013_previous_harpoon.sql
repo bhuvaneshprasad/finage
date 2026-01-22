@@ -1,0 +1,2 @@
+ALTER TABLE "mf_holdings" ADD COLUMN "mf_code" text;--> statement-breakpoint
+ALTER TABLE "mf_holdings" ADD CONSTRAINT "mf_holdings_mf_code_mf_schemes_mf_code_fk" FOREIGN KEY ("mf_code") REFERENCES "public"."mf_schemes"("mf_code") ON DELETE no action ON UPDATE no action;

@@ -1,7 +1,7 @@
 import { char, integer, pgTable, text } from 'drizzle-orm/pg-core';
 
 export const fundManagers = pgTable('fund_managers', {
-  fundManagerId: integer('fund_managers_id').primaryKey(),
+  fundManagerId: integer('fund_managers_id').primaryKey().generatedByDefaultAsIdentity(),
   fundManagerName: text('fund_manager_name').notNull(),
   gender: char('gender'),
 });

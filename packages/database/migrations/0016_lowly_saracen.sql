@@ -1,0 +1,1 @@
+ALTER TABLE "mf_holdings" ADD CONSTRAINT "mf_holdings_security_code_security_security_code_fk" FOREIGN KEY ("security_code") REFERENCES "public"."security"("security_code") ON DELETE no action ON UPDATE no action;

@@ -1,0 +1,1 @@
+ALTER TABLE "country" ALTER COLUMN "country_code" SET DATA TYPE char(3);
