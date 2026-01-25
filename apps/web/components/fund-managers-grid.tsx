@@ -1,6 +1,6 @@
 'use client';
 
-import { Briefcase, Building2, History, Search, User } from 'lucide-react';
+import { Briefcase, Building2, Calendar, History, Search, User } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { Button } from './ui/button';
@@ -24,6 +24,7 @@ export interface FundManager {
   activeSchemeCount: number;
   pastSchemeCount: number;
   currentAmcName: string | null;
+  yearsOfExperience: number | null; // Years since first fund managed
 }
 
 interface FundManagersGridProps {
@@ -33,10 +34,22 @@ interface FundManagersGridProps {
 
 const ITEMS_PER_PAGE_OPTIONS = [12, 24, 48, 96];
 
+// Experience filter ranges in years
+const EXPERIENCE_RANGES = [
+  { value: 'all', label: 'All Experience' },
+  { value: '0-2', label: '0-2 years', min: 0, max: 2 },
+  { value: '3-5', label: '3-5 years', min: 3, max: 5 },
+  { value: '6-10', label: '6-10 years', min: 6, max: 10 },
+  { value: '11-15', label: '11-15 years', min: 11, max: 15 },
+  { value: '16-20', label: '16-20 years', min: 16, max: 20 },
+  { value: '20+', label: '20+ years', min: 20, max: Infinity },
+];
+
 export default function FundManagersGrid({ data, totalUniqueSchemes }: FundManagersGridProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [amcFilter, setAmcFilter] = useState<string>('all');
+  const [experienceFilter, setExperienceFilter] = useState<string>('all'); // New state for experience filter
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(24);
 
@@ -72,8 +85,21 @@ export default function FundManagersGrid({ data, totalUniqueSchemes }: FundManag
       result = result.filter((m) => m.currentAmcName === amcFilter);
     }
 
+    // Experience filter - filters based on years of experience ranges
+    if (experienceFilter !== 'all') {
+      const range = EXPERIENCE_RANGES.find((r) => r.value === experienceFilter);
+      if (range && 'min' in range) {
+        result = result.filter((m) => {
+          // If yearsOfExperience is null, exclude from filtered results
+          if (m.yearsOfExperience === null) return false;
+          // Check if experience falls within the range (inclusive)
+          return m.yearsOfExperience >= range.min && m.yearsOfExperience <= range.max;
+        });
+      }
+    }
+
     return result;
-  }, [data, searchQuery, statusFilter, amcFilter]);
+  }, [data, searchQuery, statusFilter, amcFilter, experienceFilter]);
 
   // Pagination
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -81,7 +107,8 @@ export default function FundManagersGrid({ data, totalUniqueSchemes }: FundManag
   const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage);
   const endIndex = Math.min(startIndex + itemsPerPage, filteredData.length);
 
-  const isFiltered = searchQuery || statusFilter !== 'all' || amcFilter !== 'all';
+  // Check if any filter is active (to show "Filtered Results" label)
+  const isFiltered = searchQuery || statusFilter !== 'all' || amcFilter !== 'all' || experienceFilter !== 'all';
 
   const handlePageChange = (page: number) => {
     setCurrentPage(Math.max(1, Math.min(page, totalPages)));
@@ -91,6 +118,7 @@ export default function FundManagersGrid({ data, totalUniqueSchemes }: FundManag
     setSearchQuery('');
     setStatusFilter('all');
     setAmcFilter('all');
+    setExperienceFilter('all'); // Reset experience filter too
     setCurrentPage(1);
   };
 
@@ -197,6 +225,26 @@ export default function FundManagersGrid({ data, totalUniqueSchemes }: FundManag
               ))}
             </SelectContent>
           </Select>
+
+          {/* Experience filter dropdown - filters by years of experience ranges */}
+          <Select
+            value={experienceFilter}
+            onValueChange={(value) => {
+              setExperienceFilter(value);
+              setCurrentPage(1);
+            }}
+          >
+            <SelectTrigger className="w-full sm:w-[150px]">
+              <SelectValue placeholder="Experience" />
+            </SelectTrigger>
+            <SelectContent>
+              {EXPERIENCE_RANGES.map((range) => (
+                <SelectItem key={range.value} value={range.value}>
+                  {range.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </CardHeader>
 
@@ -226,7 +274,20 @@ export default function FundManagersGrid({ data, totalUniqueSchemes }: FundManag
                       ) : (
                         <div className="text-xs text-muted-foreground mt-0.5">Fund Manager</div>
                       )}
-                      <div className="flex items-center gap-3 mt-2">
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2">
+                        {/* Years of experience badge - shows calendar icon with years */}
+                        {manager.yearsOfExperience !== null && (
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Calendar className="h-3 w-3" />
+                            <span>
+                              <span className="text-foreground font-medium">
+                                {manager.yearsOfExperience}
+                              </span>{' '}
+                              {manager.yearsOfExperience === 1 ? 'yr' : 'yrs'}
+                            </span>
+                          </div>
+                        )}
+                        {/* Active scheme count */}
                         <div className="flex items-center gap-1 text-xs text-muted-foreground">
                           <Briefcase className="h-3 w-3" />
                           <span>
@@ -240,6 +301,7 @@ export default function FundManagersGrid({ data, totalUniqueSchemes }: FundManag
                             active
                           </span>
                         </div>
+                        {/* Past scheme count (only shown if > 0) */}
                         {manager.pastSchemeCount > 0 && (
                           <div className="flex items-center gap-1 text-xs text-muted-foreground">
                             <History className="h-3 w-3" />
