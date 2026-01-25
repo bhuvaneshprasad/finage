@@ -7,7 +7,7 @@ export default async function AMC() {
   return (
     <div className="flex pt-28 w-full flex-col">
       <div className='flex justify-center items-center'>
-        <span className='text-3xl font-bold uppercase'>Fund Houses</span>
+        <span className='text-3xl font-medium uppercase'>Asset Management Companies</span>
       </div>
       <div className="grid grid-cols-4 gap-8 p-8 w-full">
         {amcs.map((amc) => (
