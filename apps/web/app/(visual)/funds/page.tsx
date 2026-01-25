@@ -13,9 +13,12 @@ export default async function MFSchemes() {
   }));
 
   return (
-    <div className="flex flex-col gap-6 pt-28">
-      <div className="flex justify-center">
-        <span className="text-3xl font-medium uppercase">Mutual Fund Schemes</span>
+    <div className="flex flex-col gap-6 pt-28 px-6 mx-auto max-w-7xl pb-8">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold">Mutual Fund Schemes</h1>
+        <p className="text-muted-foreground mt-2">
+          Explore and compare mutual fund schemes across all fund houses
+        </p>
       </div>
       <AllSchemesTable data={tableData} />
     </div>

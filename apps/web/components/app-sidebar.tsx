@@ -1,4 +1,4 @@
-import { Coins, HomeIcon } from 'lucide-react';
+import { Building2, Layers } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -11,14 +11,14 @@ import {
 
 const menuItems = [
   {
-    title: 'AMCs',
+    title: 'Fund Houses',
     url: '/fund-house',
-    icon: HomeIcon,
+    icon: Building2,
   },
   {
     title: 'Schemes',
     url: '/funds',
-    icon: Coins,
+    icon: Layers,
   },
 ];
 
