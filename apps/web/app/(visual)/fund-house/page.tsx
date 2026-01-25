@@ -1,24 +1,19 @@
-import MyCard from '@/components/my-card';
-import { getAllAmcs } from '@finage/database/actions';
+import AmcGrid from '@/components/amc-grid';
+import { getAllAmcsWithStats } from '@finage/database/actions';
 
-export default async function AMC() {
-  const amcs = await getAllAmcs();
+export default async function FundHousesPage() {
+  const amcs = await getAllAmcsWithStats();
 
   return (
-    <div className="flex pt-28 w-full flex-col">
-      <div className='flex justify-center items-center'>
-        <span className='text-3xl font-medium uppercase'>Asset Management Companies</span>
+    <div className="flex flex-col gap-6 pt-28 px-6 mx-auto max-w-7xl pb-8">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold">Fund Houses</h1>
+        <p className="text-muted-foreground mt-2">
+          Browse all registered mutual fund houses in India
+        </p>
       </div>
-      <div className="grid grid-cols-4 gap-8 p-8 w-full">
-        {amcs.map((amc) => (
-          <MyCard
-            key={amc.amcCode}
-            amcName={amc.amcName}
-            amcLogo={amc.amcLogoName}
-            amcCode={amc.amcCode}
-          />
-        ))}
-      </div>
+
+      <AmcGrid amcs={amcs} />
     </div>
   );
 }

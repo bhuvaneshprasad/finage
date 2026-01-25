@@ -29,7 +29,7 @@ export default async function FundHousePage({
   }));
 
   return (
-    <div className="flex flex-col gap-6 pt-28 px-6">
+    <div className="flex flex-col gap-6 pt-28 px-6 mx-auto max-w-7xl pb-8">
       <div className="flex items-center gap-4">
         {amcData.amcLogoName && (
           <Image
