@@ -295,13 +295,15 @@ export default function SchemesTable({
                     <TableRow key={row.mfCode}>
                       <TableCell className="w-[60px]">
                         {row.logo ? (
-                          <Image
-                            src={`/amc_logo/${row.logo}`}
-                            alt={row.amcname || 'AMC Logo'}
-                            width={40}
-                            height={40}
-                            className="rounded-full"
-                          />
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white p-1.5 ring-1 ring-border/50">
+                            <Image
+                              src={`/amc_logo/${row.logo}`}
+                              alt={row.amcname || 'AMC Logo'}
+                              width={32}
+                              height={32}
+                              className="object-contain"
+                            />
+                          </div>
                         ) : (
                           <div className="h-10 w-10 rounded-full bg-muted" />
                         )}

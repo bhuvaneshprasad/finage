@@ -14,7 +14,7 @@ export default function AmcCard({ amc }: AmcCardProps) {
       <Card className="group h-full overflow-hidden transition-all hover:shadow-lg hover:border-primary/50">
         <div className="p-4 pb-3">
           <div className="flex items-center gap-3">
-            <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-muted/80 to-muted p-2">
+            <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white p-2 ring-1 ring-border/50">
               {amc.amcLogoName ? (
                 <Image
                   src={`/amc_logo/${amc.amcLogoName}`}
