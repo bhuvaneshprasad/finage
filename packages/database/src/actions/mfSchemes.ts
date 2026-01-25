@@ -17,7 +17,34 @@ export async function getAllMfSchemes() {
     .from(mfSchemes)
     .innerJoin(mfSchemeCategory, eq(mfSchemes.schemeCategory, mfSchemeCategory.categoryCode))
     .innerJoin(amc, eq(mfSchemes.amcCode, amc.amcCode))
-    .orderBy(mfSchemes.schemeName)
-    .limit(10);
+    .orderBy(mfSchemes.schemeName);
   return schemeData;
+}
+
+export async function getMfSchemesByAmc(amcCode: string) {
+  const db = await getDb();
+
+  const schemeData = await db
+    .select({
+      mfCode: mfSchemes.mfCode,
+      schemeName: mfSchemes.schemeName,
+      schemeCategory: mfSchemeCategory.categoryName,
+      amcName: amc.amcName,
+      amcLogo: amc.amcLogoName,
+    })
+    .from(mfSchemes)
+    .innerJoin(mfSchemeCategory, eq(mfSchemes.schemeCategory, mfSchemeCategory.categoryCode))
+    .innerJoin(amc, eq(mfSchemes.amcCode, amc.amcCode))
+    .where(eq(mfSchemes.amcCode, amcCode))
+    .orderBy(mfSchemes.schemeName);
+  return schemeData;
+}
+
+export async function getAmcByCode(amcCode: string) {
+  const db = await getDb();
+
+  const amcData = await db.query.amc.findFirst({
+    where: eq(amc.amcCode, amcCode),
+  });
+  return amcData;
 }

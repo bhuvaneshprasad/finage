@@ -13,7 +13,7 @@ export default async function MFSchemes() {
   }));
 
   return (
-    <div className="flex-col pt-28">
+    <div className="flex flex-col gap-6 pt-28">
       <div className="flex justify-center">
         <span className="text-3xl font-medium uppercase">Mutual Fund Schemes</span>
       </div>
