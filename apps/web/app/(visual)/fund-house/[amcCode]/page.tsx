@@ -32,13 +32,15 @@ export default async function FundHousePage({
     <div className="flex flex-col gap-6 pt-28 px-6 mx-auto max-w-7xl pb-8">
       <div className="flex items-center gap-4">
         {amcData.amcLogoName && (
-          <Image
-            src={`/amc_logo/${amcData.amcLogoName}`}
-            alt={amcData.amcName || 'AMC Logo'}
-            width={64}
-            height={64}
-            className="rounded-lg"
-          />
+          <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-white p-2 ring-1 ring-border/50">
+            <Image
+              src={`/amc_logo/${amcData.amcLogoName}`}
+              alt={amcData.amcName || 'AMC Logo'}
+              width={52}
+              height={52}
+              className="object-contain"
+            />
+          </div>
         )}
         <div>
           <h1 className="text-2xl font-bold">{amcData.amcName}</h1>

@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import AppSidebar from '@/components/app-sidebar';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 const geistSans = Geist({
@@ -27,32 +29,38 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <SidebarProvider>
-            <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b bg-background">
-              <div className="mx-auto flex h-full items-center justify-between px-6">
-                {/* Logo */}
-                <div className="text-xl font-bold">Finage</div>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SidebarProvider>
+              <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b bg-background">
+                <div className="mx-auto flex h-full items-center justify-between px-6">
+                  <div className="text-xl font-bold">Finage</div>
 
-                {/* Auth */}
-                <div className="flex items-center gap-4">
-                  <SignedOut>
-                    <SignInButton />
-                  </SignedOut>
+                  <div className="flex items-center gap-2">
+                    <ThemeToggle />
+                    <SignedOut>
+                      <SignInButton />
+                    </SignedOut>
 
-                  <SignedIn>
-                    <UserButton />
-                  </SignedIn>
+                    <SignedIn>
+                      <UserButton />
+                    </SignedIn>
+                  </div>
                 </div>
-              </div>
-            </header>
+              </header>
 
-            <div className="flex min-h-screen w-full">
-              <AppSidebar />
-              <SidebarInset className='px-8'>{children}</SidebarInset>
-            </div>
-          </SidebarProvider>
+              <div className="flex min-h-screen w-full">
+                <AppSidebar />
+                <SidebarInset className="px-8">{children}</SidebarInset>
+              </div>
+            </SidebarProvider>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
