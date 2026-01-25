@@ -50,7 +50,7 @@ export default function RootLayout({
 
             <div className="flex min-h-screen w-full">
               <AppSidebar />
-              <SidebarInset>{children}</SidebarInset>
+              <SidebarInset className='px-8'>{children}</SidebarInset>
             </div>
           </SidebarProvider>
         </body>

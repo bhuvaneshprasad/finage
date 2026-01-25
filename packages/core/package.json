@@ -9,6 +9,9 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./mfTypes": {
+      "types": "./src/mutualFunds/types.ts"
     }
   },
   "scripts": {
