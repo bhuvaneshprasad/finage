@@ -31,6 +31,7 @@ export interface SchemesTableProps {
   title?: string;
   filteredTitle?: string;
   showAmcFilter?: boolean;
+  showCategoryFilter?: boolean;
   showAmcInSchemeColumn?: boolean;
   searchPlaceholder?: string;
 }
@@ -40,6 +41,7 @@ export default function SchemesTable({
   title = 'All Schemes',
   filteredTitle = 'Filtered Results',
   showAmcFilter = true,
+  showCategoryFilter = true,
   showAmcInSchemeColumn = true,
   searchPlaceholder = 'Search schemes or category...',
 }: SchemesTableProps) {
@@ -74,7 +76,7 @@ export default function SchemesTable({
       );
     }
 
-    if (categoryFilter !== 'all') {
+    if (showCategoryFilter && categoryFilter !== 'all') {
       result = result.filter((item) => item.schemeCategory === categoryFilter);
     }
 
@@ -94,14 +96,14 @@ export default function SchemesTable({
     }
 
     return result;
-  }, [data, searchQuery, categoryFilter, amcFilter, sortField, sortDirection, showAmcFilter]);
+  }, [data, searchQuery, categoryFilter, amcFilter, sortField, sortDirection, showAmcFilter, showCategoryFilter]);
 
   const totalPages = Math.ceil(filteredAndSortedData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = filteredAndSortedData.slice(startIndex, startIndex + itemsPerPage);
   const endIndex = Math.min(startIndex + itemsPerPage, filteredAndSortedData.length);
 
-  const isFiltered = searchQuery || categoryFilter !== 'all' || (showAmcFilter && amcFilter !== 'all');
+  const isFiltered = searchQuery || (showCategoryFilter && categoryFilter !== 'all') || (showAmcFilter && amcFilter !== 'all');
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -204,25 +206,27 @@ export default function SchemesTable({
               />
             </div>
 
-            <Select
-              value={categoryFilter}
-              onValueChange={(value) => {
-                setCategoryFilter(value);
-                setCurrentPage(1);
-              }}
-            >
-              <SelectTrigger className="w-full sm:w-[200px]">
-                <SelectValue placeholder="Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                {categories.map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {showCategoryFilter && (
+              <Select
+                value={categoryFilter}
+                onValueChange={(value) => {
+                  setCategoryFilter(value);
+                  setCurrentPage(1);
+                }}
+              >
+                <SelectTrigger className="w-full sm:w-[200px]">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
 
             {showAmcFilter && (
               <Select

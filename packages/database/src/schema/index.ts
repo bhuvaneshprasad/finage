@@ -8,6 +8,7 @@ export * from './fund_managers';
 export * from './mfHoldings';
 export * from './mfHoldingsPeriod';
 export * from './mfNav';
+export * from './mfSchemeCategory';
 export * from './mfSchemeFundManager';
 export * from './mfSchemes';
 export * from './sector';

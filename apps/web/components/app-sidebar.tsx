@@ -1,4 +1,4 @@
-import { Building2, Layers } from 'lucide-react';
+import { Building2, FolderTree, Layers, Users } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +19,16 @@ const menuItems = [
     title: 'Schemes',
     url: '/funds',
     icon: Layers,
+  },
+  {
+    title: 'Categories',
+    url: '/categories',
+    icon: FolderTree,
+  },
+  {
+    title: 'Fund Managers',
+    url: '/fund-managers',
+    icon: Users,
   },
 ];
 
