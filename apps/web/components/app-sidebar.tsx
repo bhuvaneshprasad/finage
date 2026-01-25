@@ -22,6 +22,8 @@ export default function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarHeader />
       <SidebarContent>
+        <SidebarMenuItem />
+        <SidebarMenuItem />
         {menuItems.map((menuItem) => (
           <SidebarMenuItem key={menuItem.title}>
             <SidebarMenuButton asChild>

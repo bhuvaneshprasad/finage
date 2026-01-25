@@ -9,6 +9,14 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./src/schema/index.ts",
+      "import": "./src/schema/index.ts"
+    },
+    "./actions": {
+      "types": "./src/actions/index.ts",
+      "import": "./src/actions/index.ts"
     }
   },
   "scripts": {
