@@ -9,6 +9,8 @@ export type FundManagerWithStats = {
   activeSchemeCount: number;
   pastSchemeCount: number;
   currentAmcName: string | null;
+  firstStartDate: Date | null; // The earliest date this manager started managing a fund
+  yearsOfExperience: number | null; // Calculated from firstStartDate to now
 };
 
 export async function getAllFundManagersWithStats(): Promise<FundManagerWithStats[]> {
@@ -34,6 +36,7 @@ export async function getAllFundManagersWithStats(): Promise<FundManagerWithStat
 
   const managersWithAmc = await Promise.all(
     managers.map(async (manager) => {
+      // Fetch current AMC name for this fund manager
       const currentAmc = await db
         .selectDistinct({ amcName: amc.amcName })
         .from(mfSchemeFundManagers)
@@ -47,6 +50,7 @@ export async function getAllFundManagersWithStats(): Promise<FundManagerWithStat
         )
         .limit(1);
 
+      // Count past (inactive) schemes for this manager
       const pastCount = await db
         .select({ count: count() })
         .from(mfSchemeFundManagers)
@@ -57,10 +61,33 @@ export async function getAllFundManagersWithStats(): Promise<FundManagerWithStat
           )
         );
 
+      // Get the earliest start date for experience calculation
+      const firstStart = await db
+        .select({ startDate: mfSchemeFundManagers.startDate })
+        .from(mfSchemeFundManagers)
+        .where(eq(mfSchemeFundManagers.fundManagerId, manager.fundManagerId))
+        .orderBy(asc(mfSchemeFundManagers.startDate))
+        .limit(1);
+
+      // startDate from DB might be a string or Date, so we normalize it
+      const rawStartDate = firstStart[0]?.startDate;
+      const firstStartDate = rawStartDate ? new Date(rawStartDate) : null;
+      
+      // Calculate years of experience from firstStartDate to now
+      let yearsOfExperience: number | null = null;
+      if (firstStartDate && !isNaN(firstStartDate.getTime())) {
+        const now = new Date();
+        const diffMs = now.getTime() - firstStartDate.getTime();
+        // Convert milliseconds to years (more precise calculation)
+        yearsOfExperience = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
+      }
+
       return {
         ...manager,
         pastSchemeCount: pastCount[0]?.count || 0,
         currentAmcName: currentAmc[0]?.amcName || null,
+        firstStartDate,
+        yearsOfExperience,
       };
     })
   );
