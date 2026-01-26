@@ -56,3 +56,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+github_deploy_key
+github_deploy_key.pub
