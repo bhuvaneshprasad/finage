@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Wait before deploy
-        run: sleep 30
-
       - name: Deploy to home server
         uses: appleboy/ssh-action@v1.0.3
         with:
