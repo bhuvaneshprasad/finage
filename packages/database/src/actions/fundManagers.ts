@@ -75,7 +75,7 @@ export async function getAllFundManagersWithStats(): Promise<FundManagerWithStat
       
       // Calculate years of experience from firstStartDate to now
       let yearsOfExperience: number | null = null;
-      if (firstStartDate && !isNaN(firstStartDate.getTime())) {
+      if (firstStartDate && Number.isNaN(firstStartDate.getTime())) {
         const now = new Date();
         const diffMs = now.getTime() - firstStartDate.getTime();
         // Convert milliseconds to years (more precise calculation)
@@ -178,14 +178,17 @@ export async function getFundManagerStats(fundManagerId: number): Promise<FundMa
   };
 }
 
+// Type definition for a scheme managed by a fund manager
+// mfCode can be null because mfSchemeFundManagers.mfCode is a nullable foreign key
+// startDate and endDate are strings because Drizzle ORM returns PostgreSQL `date` columns as ISO strings
 export type FundManagerScheme = {
-  mfCode: string;
+  mfCode: string | null;  // Nullable FK to mf_schemes table
   schemeName: string;
   amcName: string;
   amcLogo: string | null;
   categoryName: string | null;
-  startDate: Date;
-  endDate: Date | null;
+  startDate: string;  // Drizzle returns date columns as ISO strings, e.g., "2024-01-15"
+  endDate: string | null;  // Same as startDate, but optional (nullable in schema)
   isCurrent: boolean;
 };
 
@@ -213,17 +216,26 @@ export async function getFundManagerSchemes(fundManagerId: number): Promise<Fund
   return schemes;
 }
 
+// Gets the earliest date when a fund manager started managing any scheme
+// This is used to calculate their years of experience in the industry
+// Returns Date object or null if no schemes found
 export async function getFundManagerFirstStartDate(fundManagerId: number): Promise<Date | null> {
   const db = await getDb();
 
+  // Query the earliest start date from all schemes this manager has managed
   const result = await db
     .select({ startDate: mfSchemeFundManagers.startDate })
     .from(mfSchemeFundManagers)
     .where(eq(mfSchemeFundManagers.fundManagerId, fundManagerId))
-    .orderBy(asc(mfSchemeFundManagers.startDate))
-    .limit(1);
+    .orderBy(asc(mfSchemeFundManagers.startDate))  // Ascending order = oldest first
+    .limit(1);  // Only need the earliest one
 
-  return result[0]?.startDate || null;
+  // Drizzle returns PostgreSQL `date` columns as strings like "2024-01-15"
+  // We need to convert it to a JavaScript Date object to match our return type
+  const rawStartDate = result[0]?.startDate;
+  
+  // If startDate exists, convert the ISO string to a Date object; otherwise return null
+  return rawStartDate ? new Date(rawStartDate) : null;
 }
 
 export type CoManager = {
@@ -259,12 +271,23 @@ export async function getFundManagerCoManagers(fundManagerId: number): Promise<C
       )
     );
 
+  // Map to count how many schemes each co-manager shares with this fund manager
+  // Key = fundManagerId, Value = { name, count }
   const coManagerMap = new Map<number, { name: string; count: number }>();
+  
+  // Iterate through all co-manager records and count shared schemes
   for (const cm of coManagersRaw) {
+    // Skip if fundManagerId is null (shouldn't happen with inner join, but TypeScript needs this check
+    // because the schema defines fundManagerId as nullable)
+    if (cm.fundManagerId === null) continue;
+    
+    // Check if we've already seen this co-manager
     const existing = coManagerMap.get(cm.fundManagerId);
     if (existing) {
+      // Increment their shared scheme count
       existing.count++;
     } else {
+      // First time seeing this co-manager, initialize their entry
       coManagerMap.set(cm.fundManagerId, { name: cm.fundManagerName, count: 1 });
     }
   }

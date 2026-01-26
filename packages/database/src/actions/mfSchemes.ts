@@ -21,7 +21,9 @@ export async function getAllMfSchemes() {
   return schemeData;
 }
 
-export async function getMfSchemesByAmc(amcCode: string) {
+// Function to get all schemes for a specific AMC (Asset Management Company)
+// Parameter `amcCode` is a number because the amc table uses smallint for amc_code
+export async function getMfSchemesByAmc(amcCode: number) {
   const db = await getDb();
 
   const schemeData = await db
@@ -40,7 +42,9 @@ export async function getMfSchemesByAmc(amcCode: string) {
   return schemeData;
 }
 
-export async function getAmcByCode(amcCode: string) {
+// Function to get AMC details by its code
+// Parameter `amcCode` is a number because the amc table uses smallint for amc_code
+export async function getAmcByCode(amcCode: number) {
   const db = await getDb();
 
   const amcData = await db.query.amc.findFirst({
