@@ -10,10 +10,11 @@ export default async function FundHousePage({
   params: Promise<{ amcCode: string }>;
 }) {
   const { amcCode } = await params;
+  const amcCodeNum = Number(amcCode);
 
   const [amcData, mfSchemes] = await Promise.all([
-    getAmcByCode(amcCode),
-    getMfSchemesByAmc(amcCode),
+    getAmcByCode(amcCodeNum),
+    getMfSchemesByAmc(amcCodeNum),
   ]);
 
   if (!amcData) {
