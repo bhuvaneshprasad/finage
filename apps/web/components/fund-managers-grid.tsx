@@ -85,15 +85,13 @@ export default function FundManagersGrid({ data, totalUniqueSchemes }: FundManag
       result = result.filter((m) => m.currentAmcName === amcFilter);
     }
 
-    // Experience filter - filters based on years of experience ranges
     if (experienceFilter !== 'all') {
       const range = EXPERIENCE_RANGES.find((r) => r.value === experienceFilter);
-      if (range && 'min' in range) {
+      if (range && range.min !== undefined && range.max !== undefined) {
+        const { min, max } = range;
         result = result.filter((m) => {
-          // If yearsOfExperience is null, exclude from filtered results
           if (m.yearsOfExperience === null) return false;
-          // Check if experience falls within the range (inclusive)
-          return m.yearsOfExperience >= range.min && m.yearsOfExperience <= range.max;
+          return m.yearsOfExperience >= min && m.yearsOfExperience <= max;
         });
       }
     }
