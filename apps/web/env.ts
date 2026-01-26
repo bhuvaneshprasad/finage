@@ -11,7 +11,7 @@ export const env = createEnv({
     DB_PASSWORD: z.string(),
     DB_USER: z.string(),
     DB_NAME: z.string(),
-    DB_PORT: z.number().default(5432),
+    DB_PORT: z.preprocess((val) => Number(val), z.number()).default(5432),
 
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   },
