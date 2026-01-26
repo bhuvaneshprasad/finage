@@ -71,6 +71,25 @@ COPY --from=deps /app/packages/database/node_modules ./packages/database/node_mo
 # We do this AFTER installing deps so changing source doesn't invalidate the deps cache
 COPY . .
 
+# 👇 build-time envs
+ARG DB_HOST
+ARG DB_PORT
+ARG DB_USER
+ARG DB_PASSWORD
+ARG DB_NAME
+ARG DB_CONNECTION_NAME
+ARG NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+ARG CLERK_SECRET_KEY
+
+ENV DB_HOST=$DB_HOST
+ENV DB_PORT=$DB_PORT
+ENV DB_USER=$DB_USER
+ENV DB_PASSWORD=$DB_PASSWORD
+ENV DB_NAME=$DB_NAME
+ENV DB_CONNECTION_NAME=$DB_CONNECTION_NAME
+ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+ENV CLERK_SECRET_KEY=$CLERK_SECRET_KEY
+
 # Build the workspace packages first
 # These need to be compiled before the web app can import them
 #
