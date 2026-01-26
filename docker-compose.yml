@@ -1,0 +1,12 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: finage
+    container_name: finage
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT}:3000"
+    env_file:
+      - .env
